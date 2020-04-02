@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/w3-style.css">
+  <link rel="stylesheet" href="../css/loading.css">
+
+</head>
+
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('images/4362c6b8dcfadfd131f59e711d5db02b.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+</style>
+
+<body>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white" id="page-1">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+
+    </div>
+
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Admin Dashboard</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">
+        <form class="w3-container">
+          <label>E-Mail</label>
+          <input class="w3-input w3-border-0" type="text" id="email" value="admin@temporary.com">
+          <label>Password</label>
+          <input class="w3-input w3-border-0" type="password" id="password" value="tempadmin">
+        </form>
+      </p>
+
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-blue app-proceed">Next</button>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-2">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge session-name">
+
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Main Menu</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-blue app-current-session">Current Session</button>
+      </p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-blue app-proceed">New Session</button>
+      </p>
+    </div>
+  </div>
+
+  
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-3">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge session-name">
+
+    </div>
+    <div class="w3-display-middle w3-center" style="overflow-y: scroll;max-height: 450px;">
+      <h1 class="w3-jumbo w3-animate-top">Create Session</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">Session Information</p>
+      <p class="w3-large w3-center">
+         <form class="w3-container">
+          <label>Session Name</label>
+          <input class="w3-input w3-border-0" type="text" id="session-name" value="Test Session">
+          <label>Number of Users</label>
+          <input class="w3-input w3-border-0" type="text" id="user-amount" value="50">
+          <!--<label>User Point</label>
+          <input class="w3-input w3-border-0" type="text" id="user-point" value="10000">-->
+        </form>
+      </p>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">
+         <form class="w3-container" id="vote-name-form">
+
+          <span>
+            <label>Vote Choices</label>
+            <input class="w3-input w3-border-0 session-vote-name" type="text" placeholder="Vote Name 1" value="name">
+          </span>
+
+        </form>
+        <p class="w3-large w3-center">
+          <button class="w3-button w3-round-large w3-blue app-add-vote-name">Add Vote Choice</button>
+        </p>
+      </p>
+      <p class="w3-large w3-center">
+       
+        <button class="w3-button w3-round-large w3-blue app-proceed">Submit</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-4">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge session-name">
+
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Token Print</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <div class="w3-large w3-center w3-animate-top"  style="overflow-y: scroll;max-height: 450px;">
+        <table class="w3-centered w3-striped w3-table w3-animate-top" id="token-table" style="background-color: #FFF;color:#000" >
+          <tbody>
+          <tr class="w3-blue">
+            <th>No</th>
+            <th>Token</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w3-large w3-center">
+        <!-- <button class="w3-button w3-round-large w3-blue app-print">Print</button> -->
+        <button class="w3-button w3-round-large w3-blue app-proceed">Next</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-5">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge session-name">
+
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Ready to Start?</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center" id="waiting-session-name">{SESSION NAME}</p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-blue app-back">Back</button>
+        <button class="w3-button w3-round-large w3-blue app-proceed">Start Session</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-6">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge session-name">
+      {SESSION NAME}
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Vote Open</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">Current Vote Choice: <span id="current-vote-choice"></span></p>
+      <p class="w3-large w3-center">Current Session Status: <span id="session-status"></span></p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-blue app-pause-vote">Pause Vote</button>
+        <button class="w3-button w3-round-large w3-blue app-resume-vote w3-hide">Resume Vote</button>
+        <button class="w3-button w3-round-large w3-blue app-activate-vote">Activate Next Vote</button>
+        <button class="w3-button w3-round-large w3-blue app-proceed">Close Session</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-7">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge session-name">
+      {SESSION NAME}
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Vote Closed</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center"></p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-lar ge w3-blue app-export">Show Result</button>
+        <button class="w3-button w3-round-large w3-blue app-proceed">Return to Main Menu</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-8">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge session-name">
+      {SESSION NAME}
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Vote Result</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">
+        
+        <div id="result">result</div>
+
+      </p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-lar ge w3-blue app-back">Back</button>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/loading.js"></script>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "[api-key]",
+      authDomain: "[auth-domain]",
+      databaseURL: "[database-url]",
+      projectId: "[project-id]",
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+  
+    function createVoteSession(sessionName, tokenAmount = 100, creditPoint = 10000, voteChoices) {
+      let sessionId = Math.random().toString(36).substring(3, 11).toUpperCase();
+      var createVoteSession = firebase.database().ref('vote_session/').set({
+              sessionId : sessionId,
+              sessionName : sessionName,
+              tokenAmount : tokenAmount,
+              creditPoint : creditPoint,
+              voteChoices : voteChoices,
+              status : 'close',
+              currentVoteChoice : 0,
+              timestamp : firebase.database.ServerValue.TIMESTAMP
+            }).then(function(snapshot) {
+              console.log(snapshot);
+            });
+
+      // create vote choices' total score
+      let voteScore = {};
+      for(i in voteChoices) {
+        voteScore[i] = 0;
+      }
+
+      createVoteChoice = firebase.database().ref('vote_score/').set(voteScore).then(function(snapshot) {
+        console.log(snapshot);
+      });
+
+    }
+
+    function pauseVoteSession() {
+
+      var pauseVoteSession = firebase.database().ref('vote_session/').update({status : 'close'}).then(function() {
+            
+            jQuery('#session-status').html('pause');
+
+            jQuery('.app-pause-vote').addClass('w3-hide');
+            jQuery('.app-resume-vote').removeClass('w3-hide');
+
+            stopLoadingScreen();
+
+          }).catch( function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+
+          });
+    }
+
+    function resumeVoteSession() {
+
+      var resumeVoteSession = firebase.database().ref('vote_session/').update({status : 'open'}).then(function() {
+            jQuery('#session-status').html('open');
+
+            jQuery('.app-resume-vote').addClass('w3-hide');
+            jQuery('.app-pause-vote').removeClass('w3-hide');
+
+            stopLoadingScreen();
+            
+          }).catch( function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+
+          });
+    }
+
+    function proceedVoteSession() {
+      var proceedVoteSession = firebase.database().ref('vote_session/').once('value').then(function(session) {
+        let currentVoteChoice = session.val().currentVoteChoice;
+        let voteChoiceLimit = session.val().voteChoices.length;
+
+        if(currentVoteChoice + 1 < voteChoiceLimit){
+          
+          firebase.database().ref('vote_session/').update({currentVoteChoice : currentVoteChoice + 1}).then(function() {
+            // add blank score point to vote_score
+
+            let voteScoreUpdate = firebase.database().ref('vote_score/' ).once('value').then(function(snapshot) {
+            let voteScore = snapshot.val();
+
+            voteScore[voteScore.length] = 0;
+
+            let voteScoreUpdate = firebase.database().ref('vote_score/' ).set(voteScore).catch(
+                         function(error) {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            alert(errorMessage);
+                  });
+              
+            });
+
+          }).catch( function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+            return 0;
+          });
+
+          jQuery('#current-vote-choice').html(currentVoteChoice + 2 );
+
+        } else {
+          alert('Reached last vote choice');
+        }
+
+      });
+
+    }
+
+    function clearVoteSession() {
+
+      let clearVoteSession = firebase.database().ref('vote_session/').set(0).catch(
+             function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(errorMessage);
+            });
+      jQuery('.session-name').val();
+      return 0;
+    }
+
+    function clearVoteData() {
+      let clearVoteData = firebase.database().ref('vote_data/').set(0);
+      return clearVoteData;
+    }
+
+    function clearVoteScore() {
+      let clearVoteScore = firebase.database().ref('vote_score/').set(0);
+      return clearVoteScore;
+    }
+
+    function generateTokenVoteData(amount) {
+      
+      var clearExistingVote = firebase.database().ref('vote_data/').set(0)
+
+      .then(function() {
+        //console.log('re-initialte vote_data')
+        collisionCheck = [];
+        
+        for(let i = 0;i<amount; i++) {
+
+          let newToken = '';
+          
+          do {
+            newToken = Math.random().toString(36).substring(7, 11).toUpperCase();  
+
+          } while (collisionCheck.indexOf(newToken) > 0);
+           
+          collisionCheck.push(newToken);
+          
+          let newObject = {};
+          newObject[newToken] = 0;
+          let addToken = firebase.database().ref('vote_data/' + newToken).set(0);  // just create new empty tokens
+
+        }
+
+        getTokenList();
+
+      }).catch(
+               function(error) {
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  alert(errorMessage);
+      });
+
+      return 0;
+    }
+
+    function getTokenList() {
+      let tokenData = firebase.database().ref('vote_data/').once('value').then((tokens) => {
+                    tokens = tokens.val();
+                    tokenKeys = Object.keys(tokens);
+
+                    for (i in tokenKeys) {
+                      jQuery('#token-table tr:last').after('<tr><td>'+(parseInt(i)+1)+'</td><td>'+tokenKeys[i]+'</td></tr>')
+                    }
+
+      });
+    }
+
+
+    function startLoadingScreen() {
+      jQuery('body').loading();
+    }
+
+    function stopLoadingScreen() {
+      jQuery('body').loading('stop');
+    }
+
+    function openCurrentSession() {
+      let sessionData = firebase.database().ref('vote_session/').once('value').then(
+        function(session) {
+
+          // from page 2
+          if(session.val() === 0) {
+            alert('Empty Session');
+            stopLoadingScreen();  // not going anywhere
+          } else {
+            session = session.val();
+            if(session.status != 'open') {
+              waitingSessionStart(2); // start session
+
+            } else {
+
+              monitorVoteScore();
+
+              jQuery('#waiting-session-name').html(session.sessionName);
+              jQuery('.session-name').html(session.sessionName);
+              jQuery('#current-vote-choice').html(session.currentVoteChoice + 1);
+              jQuery('#session-status').html(session.status);
+
+              changePage(2, 6); // see running vote
+            }
+
+          }
+          
+        }
+      );
+
+      return sessionData;
+
+    }
+
+
+    function waitingSessionStart(fromPage = 4) {
+      let sessionData = firebase.database().ref('vote_session/').once('value').then(
+        function(session) {
+          //console.log(session);
+          if(session.val() === 0) {
+            alert('Empty Session');
+          } else {
+
+            session = session.val()
+            jQuery('#waiting-session-name').html(session.sessionName);
+            jQuery('.session-name').html(session.sessionName);
+            jQuery('#current-vote-choice').html(session.currentVoteChoice + 1);
+            jQuery('#session-status').html(session.status);
+
+            changePage(fromPage, 5);
+          }
+          
+        }
+      );
+
+      return sessionData;
+
+    }
+
+    function startSession() {
+      status = 'open';
+      let startSession = firebase.database().ref('vote_session/').update({status : status}).then(function() {
+        changePage(5, 6);
+        monitorVoteScore();
+      });
+      return startSession;
+    }
+
+    function finalizeSession() {
+      status = 'final';
+      let startSession = firebase.database().ref('vote_session/').update({status : status}).then(function() {
+        changePage(6, 7);
+      });
+      return startSession;
+    }
+
+    function showResult() {
+
+      var voteSessionData = firebase.database().ref('vote_session/').once('value').then(function(session) {
+        
+        return session.val();
+
+      }).then(function(sessionData) {
+
+        let voteChoices = sessionData.voteChoices;
+
+        let voteScoreUpdate = firebase.database().ref('vote_score/' ).once('value').then(function(snapshot) {
+
+          let voteScore = snapshot.val();
+          let quickResult = '';
+
+          for(i in voteChoices) {
+            quickResult = quickResult + '<b>' + voteChoices[i] +':</b> <u>'+ voteScore[i] + '</u> pts<hr>'; 
+          }
+
+          jQuery('#result').html(quickResult)
+          
+
+        });
+
+      });
+
+    }
+
+    //  collecting vote score at each moment
+    function monitorVoteScore() {
+      console.log('start monitor vote score');
+
+      let voteDataUpdate = firebase.database().ref('vote_data/' ).on('value', function(snapshot) {
+        let voteData = snapshot.val();
+        let totalScore = [];
+
+        for(i in voteData){ 
+          for(j in voteData[i]){
+            if(totalScore[voteData[i][j]] == undefined)
+              totalScore[voteData[i][j]] = 1;
+            else 
+              totalScore[voteData[i][j]]++;
+            }
+
+        }
+
+        let voteScoreUpdate = firebase.database().ref('vote_score/' ).set(totalScore).catch(
+                     function(error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        alert(errorMessage);
+            });
+        
+      });
+
+    }
+
+    function checkExistingSession() {
+      let sessionData = firebase.database().ref('vote_session/').once('value').then(
+        function(session) {
+
+          // from page 2
+          if(session.val() === 0) {
+            changePage(2, 3);
+          } else {
+            if( confirm('Delete existing session and create new session?'))
+              changePage(2, 3);
+          }
+          
+        }
+      );
+
+      
+    }
+
+  </script>
+  <script>
+    var token = '';
+    var showAlert = false;
+    var voteScores = [];
+    var status = '';
+
+    let collisionCheck = [];
+
+    function changePage(from, to) {
+      startLoadingScreen();
+      jQuery('#page-'+from).addClass('w3-hide');
+      jQuery('#page-'+to).removeClass('w3-hide');
+      stopLoadingScreen();
+    }
+
+
+    jQuery(document).ready(function() {
+    	
+
+    	jQuery('#page-1 .app-proceed').click(function() {
+
+        startLoadingScreen();
+    		
+        let email = jQuery('#email').val();
+    		let password = jQuery('#password').val();
+
+    		firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+    			changePage(1, 2);
+
+    		}).catch(function(error) {
+  			  var errorCode = error.code;
+  			  var errorMessage = error.message;
+  			  alert(errorMessage);
+  			});
+    	});
+
+      jQuery('#page-2 .app-current-session').click(function() {
+        openCurrentSession();
+      });
+
+      jQuery('#page-2 .app-proceed').click(function() {
+        checkExistingSession();
+
+      });
+
+      jQuery('#page-3 .app-add-vote-name').click(function() {
+        
+        let newNo = jQuery('#vote-name-form').children().length;
+        let item = '<span>\
+            <hr class="w3-border-grey" style="margin:auto;width:40%">\
+            <input class="w3-input w3-border-0 session-vote-name" type="text" placeholder="Vote Name '+(newNo+1)+'">\
+          </span>';
+
+        jQuery('#vote-name-form').append(item);
+      });
+
+      jQuery('#page-3 .app-proceed').click(function() {
+
+        startLoadingScreen();
+
+        // create vote session
+        let sessionName = jQuery('#session-name').val();
+        let userAmount = jQuery('#user-amount').val();
+        let userPoint = jQuery('#user-point').val();
+
+        let voteItem = $('.session-vote-name').filter(function() {return this.value.trim() != ''}).map(function () { return $(this).val(); }).get();
+
+        createVoteSession(sessionName, userAmount, userPoint, voteItem);
+
+        generateTokenVoteData(userAmount);
+
+
+        changePage(3, 4);
+      });
+
+      jQuery('#page-4 .app-print').click(function() {
+        // print token list
+
+      });
+
+      jQuery('#page-4 .app-proceed').click(function() {
+        startLoadingScreen();
+
+        waitingSessionStart();
+
+        
+      });
+
+
+      jQuery('#page-5 .app-back').click(function() {
+        getTokenList();
+        changePage(5, 4);
+
+      });
+
+      jQuery('#page-5 .app-proceed').click(function() {
+        startLoadingScreen();
+
+        // propagate to clients
+        // client changes from waiting area to vote session
+        startSession();
+
+      });
+
+      jQuery('#page-6 .app-pause-vote').click(function() {
+        startLoadingScreen();
+
+        // activate next vote
+        // propagate to clients
+        // client update vote names
+
+        pauseVoteSession();
+
+
+      });
+
+      jQuery('#page-6 .app-resume-vote').click(function() {
+        startLoadingScreen();
+
+        // activate next vote
+        // propagate to clients
+        // client update vote names
+
+        resumeVoteSession();
+
+
+      });
+
+      jQuery('#page-6 .app-activate-vote').click(function() {
+        startLoadingScreen();
+
+        // activate next vote
+        // propagate to clients
+        // client update vote names
+
+        proceedVoteSession();
+
+        stopLoadingScreen();
+
+      });
+
+      jQuery('#page-6 .app-proceed').click(function() {
+        startLoadingScreen();
+
+        finalizeSession();
+        changePage(6, 7);
+
+      });
+
+      jQuery('#page-7 .app-export').click(function() {
+        startLoadingScreen();
+
+        // export all results
+        showResult();
+        changePage(7, 8);
+
+      });
+
+      jQuery('#page-8 .app-back').click(function() {
+        startLoadingScreen();
+
+        changePage(8, 7);
+
+      });
+
+      jQuery('#page-7 .app-proceed').click(function() {
+        startLoadingScreen();
+
+        // clean up session and vote data
+        // propagate clients close vote
+
+        clearVoteSession();
+        clearVoteData();
+        clearVoteScore();
+
+        changePage(7, 2);
+      });
+
+
+
+    });
+
+  </script>
+
+</body>
+
+</html>

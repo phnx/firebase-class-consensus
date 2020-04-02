@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/w3-style.css">
+  <link rel="stylesheet" href="css/loading.css">
+
+</head>
+
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('images/55ffc7529f1920c62ce345cad7e2c6bd.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+</style>
+
+<body>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white" id="page-1">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Access Control</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">
+        <form class="w3-container">
+          <label>Token</label>
+          <input class="w3-input w3-border-0" type="text" id="token">
+        </form>
+      </p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-teal app-proceed">Next</button>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-2">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge token-id">
+
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Instructions</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">Text 2</p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-teal app-proceed">Next</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-3">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge token-id">
+
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Waiting Area</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center" id="waiting-text">Session is not open, please wait.</p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-teal app-proceed" disabled >Next</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white w3-hide" id="page-4">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge token-id">
+
+    </div>
+    <div class="w3-display-middle w3-center">
+      <h1 class="w3-jumbo w3-animate-top">Vote Session</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">Current Vote: <span id="current-vote-name"></span></p>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center" id="remaining-point">10 pts</p>
+      <p class="w3-large w3-center">
+        <button class="w3-button w3-round-large w3-teal app-proceed">Submit</button>
+      </p>
+    </div>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/loading.js"></script>
+  <script>
+    
+    // Initialize Firebase
+    var config = {
+      apiKey: "[api-key]",
+      authDomain: "[auth-domain]",
+      databaseURL: "[database-url]",
+      projectId: "[project-id]",
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+    function getRemainingPoint(someID) {
+      let voteCount = firebase.database().ref('vote_data/'+someID).once('value').then(
+          function(items) {
+
+            if(items.val() === null) {
+
+              stopLoadingScreen();
+
+              alert ('Wrong Token');
+              return false;
+
+            } else {
+              
+              remainingPoint = remainingPoint - Object.keys(items.val()).length;
+
+              jQuery('#remaining-point').html(remainingPoint + ' pts');
+              jQuery('.token-id').html(someID);
+
+              stopLoadingScreen();
+
+              changePage(2);
+              return true;
+
+            }
+          }
+      );
+
+      return voteCount;
+    }
+
+    function writeData(someID, bar) {
+
+      if(sessionOpen == false) {
+        alert('Session Closed')
+      
+      } else {
+        let voteCount = firebase.database().ref('vote_data/'+someID).once('value').then(
+          function(voteItems){
+
+            let items = voteItems.val();
+            let itemsLength = 0;
+
+            if(typeof(items) != 'object') {
+              items = []; 
+            } else {
+              itemsLength = items.length;
+            }
+              
+
+            if(itemsLength < 10) {
+
+              items.push(bar);
+
+              var writing = firebase.database().ref('vote_data/' + someID).set(items).then(function() {
+
+                var dataCountRef = firebase.database().ref('vote_data/' + token );
+                
+                dataCountRef.on('value',((snapshot, context) => {
+                  if(!showAlert){
+
+                    remainingPoint = remainingPoint - deductingPoint;
+
+                    jQuery('#remaining-point').html(remainingPoint + ' pts');
+                    
+                    stopLoadingScreen();
+
+                    alert('Successfully Submitted');             
+                    showAlert = true;
+                  }
+                }));
+              });
+              
+              return 0;
+
+            } else {
+              stopLoadingScreen();
+              alert('Out of points');
+              return false;
+            }
+
+          });
+        
+      }
+
+    }
+    
+
+    function waitingSessionOpen() {
+      console.log('waiting...');
+      var sessionStart = firebase.database().ref('vote_session/status' ).on('value', function(snapshot) {
+        if(snapshot.val() == 'open' && currentScreen == 3) {
+
+          sessionOpen = true;
+          
+          // store vote names
+          firebase.database().ref('vote_session/' ).once('value', function(voteData) {
+            voteData = voteData.val()
+            voteChoices = voteData.voteChoices;
+            console.log(voteChoices)
+
+            waitingCurrentVoteChoice();
+          });
+
+          jQuery('#waiting-text').html('Session is now OPEN. Please proceed');
+          jQuery('#page-3 .app-proceed').prop('disabled', false);
+
+          
+
+        } 
+
+        if(currentScreen == 4){
+        
+          if(sessionOpen == true && snapshot.val() == 'close') {
+            sessionOpen = false;
+  
+            alert('Session is now closed, please wait for further anouncement');
+            jQuery('#page-4 .app-proceed').prop('disabled', true);
+  
+          } else if (sessionOpen == false && snapshot.val() == 'open') {
+
+            sessionOpen = true;
+  
+            alert('Session is now open');
+            jQuery('#page-4 .app-proceed').prop('disabled', false);
+  
+          } else if (snapshot.val() == 'final') {
+            jQuery('#page-4 .app-proceed').prop('disabled', true);
+
+            alert('Session is now close - final.');
+            changePage(1);
+            
+          }
+
+        }
+
+      });
+    }
+
+    function waitingCurrentVoteChoice() {
+      console.log('monitor current vote choice');
+      var sessionStart = firebase.database().ref('vote_session/currentVoteChoice' ).on('value', function(snapshot) {
+        currentVoteChoice = snapshot.val()
+        console.log(currentVoteChoice)
+
+        jQuery('#current-vote-name').html(voteChoices[currentVoteChoice]);
+      });
+    }
+
+    function startLoadingScreen() {
+      jQuery('body').loading();
+    }
+
+    function stopLoadingScreen() {
+      jQuery('body').loading('stop');
+    }
+
+
+  </script>
+  <script>
+    var token = '';
+    var showAlert = false;
+    var remainingPoint = 10;
+    var deductingPoint = 1;
+    var currentVoteChoice = 0;    // current vote choice
+    var voteChoices = [];
+    var sessionOpen = false;
+    var currentScreen = 1;
+
+    function changePage(to) {
+        stopLoadingScreen();
+      if(to==2) {
+
+        jQuery('#page-1').addClass('w3-hide');
+        jQuery('#page-2').removeClass('w3-hide');
+        currentScreen = 2;
+
+      } else if (to==3) {
+        jQuery('#page-2').addClass('w3-hide');
+        jQuery('#page-3').removeClass('w3-hide');
+        currentScreen = 3;
+   
+      } else if (to==4) {
+        jQuery('#page-3').addClass('w3-hide');
+        jQuery('#page-4').removeClass('w3-hide');
+        currentScreen = 4;
+   
+      } else if (to==1) {
+        jQuery('#token').val('');
+        jQuery('#page-4').addClass('w3-hide');
+        jQuery('#page-1').removeClass('w3-hide');
+
+      }
+      stopLoadingScreen();
+    }
+
+    jQuery(document).ready(function() {
+      jQuery('#page-1 .app-proceed').click(function() {
+        startLoadingScreen();
+        token = jQuery('#token').val();
+        getRemainingPoint(token);
+
+      });
+      jQuery('#page-2 .app-proceed').click(function() {
+        startLoadingScreen();
+        waitingSessionOpen();
+        changePage(3);     
+      });
+      jQuery('#page-3 .app-proceed').click(function() {
+        startLoadingScreen();
+        changePage(4);    
+      });
+      jQuery('#page-4 .app-proceed').click(function() {
+        startLoadingScreen();
+        
+        showAlert = false;
+        writeData(token, currentVoteChoice);
+        
+
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>
